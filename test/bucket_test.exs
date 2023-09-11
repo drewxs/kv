@@ -7,12 +7,12 @@ defmodule KV.BucketTest do
   end
 
   test "stores values by key", %{bucket: bucket} do
-    assert KV.Bucket.get(bucket, "milk") == nil
+    assert KV.Bucket.get(bucket, "item") == nil
 
-    KV.Bucket.put(bucket, "milk", 3)
-    assert KV.Bucket.get(bucket, "milk") == 3
+    KV.Bucket.put(bucket, "item", 3)
+    assert KV.Bucket.get(bucket, "item") == 3
 
-    KV.Bucket.delete(bucket, "milk")
-    assert KV.Bucket.get(bucket, "milk") == nil
+    KV.Bucket.delete(bucket, "item")
+    assert KV.Bucket.get(bucket, "item") == nil
   end
 end
