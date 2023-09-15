@@ -1,4 +1,7 @@
 defmodule KV.Registry do
+  @moduledoc """
+  The registry keeps track of all the buckets in the system.
+  """
   use GenServer
 
   ## Server callbacks
