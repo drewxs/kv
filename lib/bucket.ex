@@ -2,7 +2,7 @@ defmodule KV.Bucket do
   @moduledoc """
   The bucket keeps track of all the key/value pairs in the system.
   """
-  use Agent
+  use Agent, restart: :temporary
 
   @doc """
   Starts a new bucket.
