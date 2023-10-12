@@ -47,12 +47,7 @@ defmodule KVServer.Command do
   """
   def run(command)
 
-  def run({:create, bucket}, pid) do
-    KV.Registry.create(pid, bucket)
-    {:ok, "OK\r\n"}
-  end
-
-  def run({:get, bucket, key, value}) do
+  def run({:get, bucket, key}) do
     lookup(bucket, fn pid ->
       value = KV.Bucket.get(pid, key)
       {:ok, "#{value}\r\nOK\r\n"}
@@ -71,6 +66,11 @@ defmodule KVServer.Command do
       KV.Bucket.delete(pid, key)
       {:ok, "OK\r\n"}
     end)
+  end
+
+  def run({:create, bucket}, pid) do
+    KV.Registry.create(pid, bucket)
+    {:ok, "OK\r\n"}
   end
 
   defp lookup(bucket, callback) do
