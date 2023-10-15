@@ -1,4 +1,7 @@
 defmodule KVServer.Application do
+  @moduledoc """
+  The application file for KVServer.
+  """
   use Application
 
   @impl true

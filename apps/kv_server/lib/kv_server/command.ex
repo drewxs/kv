@@ -68,13 +68,15 @@ defmodule KVServer.Command do
     end)
   end
 
-  def run({:create, bucket}, pid) do
-    KV.Registry.create(pid, bucket)
-    {:ok, "OK\r\n"}
+  def run({:create, bucket}) do
+    case KV.Router.route(bucket, KV.Registry, :create, [KV.Registry, bucket]) do
+      pid when is_pid(pid) -> {:ok, "OK\r\n"}
+      _ -> {:error, "FAILED TO CREATE BUCKET"}
+    end
   end
 
   defp lookup(bucket, callback) do
-    case KV.Registry.lookup(KV.Registry, bucket) do
+    case KV.Router.route(bucket, KV.Registry, :lookup, [KV.Registry, bucket]) do
       {:ok, pid} -> callback.(pid)
       :error -> {:error, :not_found}
     end
